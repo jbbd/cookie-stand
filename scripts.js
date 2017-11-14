@@ -171,11 +171,25 @@ var capitolHill = {
     return hourlyTotal;
   },
   publishList : function(){
+    var hourlyTotal = this.hourlyTotal();
+
     var para = document.createElement('p');
     var listName = document.createTextNode(this.location);
     para.appendChild(listName);
     var listStart = document.getElementById('listStart');
-    listStart.appendChild(para);
+    listStart.insertBefore(para, document.getElementById('list4'));
+
+    var i = 0;
+
+    while (i < this.hours.length){
+      var timeStamp = document.createElement('li');//create list item
+      timeStamp.appendChild(document.createTextNode(this.hours[i] + ': ' + hourlyTotal[i] + ' cookies.' ));//set contents
+      document.getElementById('list4').appendChild(timeStamp);
+      i++;
+    }
+    var totalCookies = document.createElement('li');
+    totalCookies.appendChild(document.createTextNode('Total: ' + hourlyTotal[15] + ' cookies.'));
+    document.getElementById('list4').appendChild(totalCookies);
   },
 };
 
@@ -205,10 +219,24 @@ var alki = {
     return hourlyTotal;
   },
   publishList : function(){
+    var hourlyTotal = this.hourlyTotal();
+
     var para = document.createElement('p');
     var listName = document.createTextNode(this.location);
     para.appendChild(listName);
     var listStart = document.getElementById('listStart');
-    listStart.appendChild(para);
-  },
+    listStart.insertBefore(para, document.getElementById('list5'));
+
+    var i = 0;
+
+    while (i < this.hours.length){
+      var timeStamp = document.createElement('li');//create list item
+      timeStamp.appendChild(document.createTextNode(this.hours[i] + ': ' + hourlyTotal[i] + ' cookies.' ));//set contents
+      document.getElementById('list5').appendChild(timeStamp);
+      i++;
+    }
+    var totalCookies = document.createElement('li');
+    totalCookies.appendChild(document.createTextNode('Total: ' + hourlyTotal[15] + ' cookies.'));
+    document.getElementById('list5').appendChild(totalCookies);
+  }
 };
