@@ -17,36 +17,56 @@ new Store('Capitol Hill', 23, 65, 6.3);
 new Store('Alki', 2, 16, 4.6);
 console.log(stores);
 //METHODS
-Store.prototype.customersPerHour = function(){
-  return Math.floor(Math.random() * (this.maxCustomers - this.minCustomers + 1)) + this.minCustomers;
-};
-Store.prototype.cookiesSold = function(){
-  return Math.floor(this.avgCookiesPerSale * this.customersPerHour());
-};
-Store.prototype.hourlyTotal = function(){
-  var hourlyTotal = [];
-  for (var i = 0; i < 15; i++){
-    hourlyTotal.push(this.cookiesSold());
-  }
+(function dothis (){
+  Store.prototype.customersPerHour = function(){
+    return Math.floor(Math.random() * (this.maxCustomers - this.minCustomers + 1)) + this.minCustomers;
+  };
+  Store.prototype.cookiesSold = function(){
+    return Math.floor(this.avgCookiesPerSale * this.customersPerHour());
+  };
+  Store.prototype.hourlyTotal = function(){
+    var hourlyTotal = [];
+    for (var i = 0; i < 15; i++){
+      hourlyTotal.push(this.cookiesSold());
+    }
 
-  var totalSum = 0;
-  for (var j = 0; j < hourlyTotal.length; j++){
-    totalSum += hourlyTotal[j];
-  }
-  hourlyTotal.push(totalSum);
-  console.log(hourlyTotal);
-  return hourlyTotal;
-};
+    var totalSum = 0;
+    for (var j = 0; j < hourlyTotal.length; j++){
+      totalSum += hourlyTotal[j];
+    }
+    hourlyTotal.push(totalSum);
+    console.log(hourlyTotal);
+    return hourlyTotal;
+  };
+})();
 //PRINTS TIMES
+
 var tableHead = document.createElement('tr');
 var tableHeadData;
 for (var i = 0; i < hours.length; i++){
   tableHeadData = document.createElement('td');
-  tableHeadData.appendChild(document.createTextNode(hours[i]));
-  tableHead.appendChild(tableHeadData);
-  document.getElementById('data').appendChild(tableHead);
+  tableHead.appendChild(document.createTextNode(hours[i]));//Appends text element to table data
+  tableHead.appendChild(tableHeadData);//Appends table data to table row
   console.log(i);
 }
+document.getElementById('data').appendChild(tableHead);
+
+console.log('hello');
+
+// PRINT ROWS
+//iterate through hourly totals of each store
+var bamf = stores[0].hourlyTotal();
+var nerfThis = document.createElement('tr');
+stores[1].hourlyTotal();//TURN THIS INTO TABLE DATA
+for (var i = 0; i < 15; i++){//For each hour,
+  var totalPerHour = document.createTextNode(bamf[i]);//create text NOde for each totalYES
+  var totalPerHourNode = document.createElement('td');//Create table data
+  totalPerHourNode.appendChild(totalPerHour);//Appends text to data cell
+  nerfThis.appendChild(totalPerHourNode);
+}
+document.getElementById('data').appendChild(nerfThis);
+
+
 
 
 
