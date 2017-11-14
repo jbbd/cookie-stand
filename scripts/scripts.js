@@ -42,7 +42,10 @@ console.log(stores);
 //PRINTS TIMES
 var tableHead = document.createElement('tr');
 var tableHeadData;
-tableHead.appendChild(document.createElement('td').appendChild(document.createTextNode('')));
+var emptyNode = document.createTextNode(' ');
+var emptyNode1 = document.createElement('td');
+emptyNode1.appendChild(emptyNode);
+tableHead.appendChild(emptyNode1);
 for (var i = 0; i < hours.length; i++){
   tableHeadData = document.createElement('td');
   tableHeadData.appendChild(document.createTextNode(hours[i]));//Appends text element to table data
