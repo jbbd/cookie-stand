@@ -225,3 +225,9 @@ var alki = {
     document.getElementById('list5').appendChild(totalCookies);
   }
 };
+
+firstAndPike.publishList();
+seatacAirport.publishList();
+seattleCenter.publishList();
+capitolHill.publishList();
+alki.publishList();
