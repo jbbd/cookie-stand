@@ -59,3 +59,7 @@ p{
   display: inline-block;
 }
 /*+++++++++END MAIN CONTENT+++++++++++*/
+table, tr, td{
+  border: 3px solid black;
+  padding: .7em;
+}

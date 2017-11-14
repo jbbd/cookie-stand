@@ -40,12 +40,12 @@ console.log(stores);
   };
 })();
 //PRINTS TIMES
-
 var tableHead = document.createElement('tr');
 var tableHeadData;
+tableHead.appendChild(document.createElement('td').appendChild(document.createTextNode('')));
 for (var i = 0; i < hours.length; i++){
   tableHeadData = document.createElement('td');
-  tableHead.appendChild(document.createTextNode(hours[i]));//Appends text element to table data
+  tableHeadData.appendChild(document.createTextNode(hours[i]));//Appends text element to table data
   tableHead.appendChild(tableHeadData);//Appends table data to table row
   console.log(i);
 }
@@ -55,9 +55,13 @@ console.log('hello');
 
 // PRINT ROWS
 //iterate through hourly totals of each store
+var nerfThis;
+var heroesNeverDie;
 for (var z = 0; z < 5; z++){
-  var bamf = stores[z].hourlyTotal();
-  var nerfThis = document.createElement('tr');
+  var bamf = stores[0].hourlyTotal();
+  nerfThis = document.createElement('tr');
+  heroesNeverDie = document.createElement('td').appendChild(document.createTextNode(stores[z].location));
+  nerfThis.appendChild(heroesNeverDie);
   stores[1].hourlyTotal();//TURN THIS INTO TABLE DATA
   for (var i = 0; i < 15; i++){//For each hour,
     var totalPerHour = document.createTextNode(bamf[i]);//create text NOde for each totalYES
