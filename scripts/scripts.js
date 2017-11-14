@@ -55,16 +55,18 @@ console.log('hello');
 
 // PRINT ROWS
 //iterate through hourly totals of each store
-var bamf = stores[0].hourlyTotal();
-var nerfThis = document.createElement('tr');
-stores[1].hourlyTotal();//TURN THIS INTO TABLE DATA
-for (var i = 0; i < 15; i++){//For each hour,
-  var totalPerHour = document.createTextNode(bamf[i]);//create text NOde for each totalYES
-  var totalPerHourNode = document.createElement('td');//Create table data
-  totalPerHourNode.appendChild(totalPerHour);//Appends text to data cell
-  nerfThis.appendChild(totalPerHourNode);
+for (var z = 0; z < 5; z++){
+  var bamf = stores[z].hourlyTotal();
+  var nerfThis = document.createElement('tr');
+  stores[1].hourlyTotal();//TURN THIS INTO TABLE DATA
+  for (var i = 0; i < 15; i++){//For each hour,
+    var totalPerHour = document.createTextNode(bamf[i]);//create text NOde for each totalYES
+    var totalPerHourNode = document.createElement('td');//Create table data
+    totalPerHourNode.appendChild(totalPerHour);//Appends text to data cell
+    nerfThis.appendChild(totalPerHourNode);
+  }
+  document.getElementById('data').appendChild(nerfThis);
 }
-document.getElementById('data').appendChild(nerfThis);
 
 
 
