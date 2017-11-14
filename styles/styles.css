@@ -1,3 +1,57 @@
 body{
   background-color: #727272;
+  margin:0;
 }
+/*+++++++++HEADER++++++++*/
+header{
+  text-align: center;
+  background-color: #ff8b31;
+  margin: 0;
+  padding: 1.2em 0 1.2em 0;
+}
+header h2{
+  margin-bottom: 0;
+}
+
+h1, h2{
+  font-family: 'Shrikhand', monospace;
+}
+
+h1{
+  font-size: 3em;
+}
+/*+++++++++END HEADER++++++++*/
+/*+++++++++MAIN CONTENT+++++++++++*/
+main{
+  margin:0 auto;
+  text-align: center;
+  width: 70%;
+  background: #00A4ba;
+  overflow: hidden;
+}
+
+p{
+  padding: .7rem;
+  margin-top: 0;
+  text-align: left;
+  font-family: 'Playfair Display', serif;
+}
+.images{
+  text-align: center;
+}
+.images img{
+  padding: 1em;
+  margin-bottom: 1.3em;
+}
+#fishSchool{
+  float:left;
+  width: 50%;
+  display: inline-block;
+}
+
+#fishShirt{
+  float:left;
+  width: 50%;
+  display: inline-block;
+}
+/*+++++++++END MAIN CONTENT+++++++++++*/
