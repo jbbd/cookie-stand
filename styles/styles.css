@@ -19,6 +19,10 @@ h1, h2{
 
 h1{
   font-size: 3em;
+  color:white;
+}
+h2{
+  color: blue;
 }
 /*+++++++++END HEADER++++++++*/
 /*+++++++++MAIN CONTENT+++++++++++*/
