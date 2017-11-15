@@ -20,28 +20,26 @@ new Store('Alki', 2, 16, 4.6);
 console.log(stores);
 
 //METHODS
-(function dothis (){
-  Store.prototype.customersPerHour = function(){
-    return Math.floor(Math.random() * (this.maxCustomers - this.minCustomers + 1)) + this.minCustomers;
-  };
-  Store.prototype.cookiesSold = function(){
-    return Math.floor(this.avgCookiesPerSale * this.customersPerHour());
-  };
-  Store.prototype.hourlyTotal = function(){
-    var hourlyTotal = [];
-    for (var i = 0; i < 15; i++){
-      hourlyTotal.push(this.cookiesSold());
-    }
+Store.prototype.customersPerHour = function(){
+  return Math.floor(Math.random() * (this.maxCustomers - this.minCustomers + 1)) + this.minCustomers;
+};
+Store.prototype.cookiesSold = function(){
+  return Math.floor(this.avgCookiesPerSale * this.customersPerHour());
+};
+Store.prototype.hourlyTotal = function(){
+  var hourlyTotal = [];
+  for (var i = 0; i < 15; i++){
+    hourlyTotal.push(this.cookiesSold());
+  }
 
-    var totalSum = 0;
-    for (var j = 0; j < hourlyTotal.length; j++){
-      totalSum += hourlyTotal[j];
-    }
-    hourlyTotal.push(totalSum);
-    return hourlyTotal;
-  };
-})();
-//PRINTS TIMES
+  var totalSum = 0;
+  for (var j = 0; j < hourlyTotal.length; j++){
+    totalSum += hourlyTotal[j];
+  }
+  hourlyTotal.push(totalSum);
+  return hourlyTotal;
+};
+//PRINTS TIMES HEADER
 function printTimes(){
   var tableHead = document.createElement('tr');
   var tableHeadData;
@@ -65,6 +63,7 @@ function printTimes(){
 }
 printTimes();
 
+//PRINTS STORE OBJECT NAME, HOURLY TOTAL AND OVERALL TOTAL
 Store.prototype.render = function(){
   var hourlyTotals = this.hourlyTotal();//Stores array of hourly totals
   var hourlyTotalTR = document.createElement('tr');//create table row
