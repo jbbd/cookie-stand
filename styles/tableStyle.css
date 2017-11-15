@@ -1,0 +1,8 @@
+table, td{
+  border: 1px solid black;
+  padding: 5px 43px 5px 3px;
+}
+
+table, td{
+  text-align: left;
+}
