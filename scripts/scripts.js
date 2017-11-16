@@ -41,7 +41,7 @@ console.log(stores);
 function getRandomNum(min, max) {
   return Math.round(Math.random() * (max - min) + min);
 }
-//CREATE TABLES
+//CREATE TABLES ----- TAKEN FROM SCOTT'S LAB BECAUSE I COULD NOT MAKE IT ANY BETTER
 function createTable() {
   var tableEl = document.getElementById('data');
   tableEl.appendChild(createTableHead());
