@@ -99,7 +99,6 @@ function onSubmit(event) {
   storeData.minCust = event.target.minCust.value;
   storeData.maxCust = event.target.maxCust.value;
   storeData.avgCookiesPerSale = event.target.avgCookiesPerSale.value;
-  var newStore = new Store(storeData.storeName, storeData.minCust, storeData.maxCust, storeData.avgCookiePerCust);
+  var newStore = new Store(storeData.storeName, storeData.minCust, storeData.maxCust, storeData.avgCookiePerSale);
   console.log(newStore);
-  createTable();
 }
