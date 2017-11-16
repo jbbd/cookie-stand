@@ -5,9 +5,30 @@
   <link rel='stylesheet' type='text/css' href='styles/tableStyle.css'>
 </head>
 <body>
-<main>
-<table id='data'>
-</table>
+  <main>
+  <fieldset id="main-fieldset">
+    <form id="main-form">
+      <label>
+        Store:<br>
+        <input type="text" name="storeName"><br>
+      </label>
+      <label>
+        Minimum Customers:<br>
+        <input type="number" name="minCust"><br>
+      </label>
+      <label>
+        Maximum Customers:<br>
+        <input type="number" name="maxCust"><br>
+      </label>
+      <label>
+        Average Cookies Sold:<br>
+        <input type="number" name="avgCookiesPerSale"><br>
+      </label>
+      <button type="submit">Submit</button>
+    </form>
+  </fieldset>
+  <table id='data'>
+  </table>
 </main>
 </body>
 <script src="scripts/scripts.js"></script>

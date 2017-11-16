@@ -3,13 +3,31 @@
 //STORES ARRAY 'STORES' NEW INSTANCES OF STORE
 var stores = [];
 var hours = ['6am', '7am', '8am', '9am','10am', '11am', '12pm', '1pm','2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
-function Store(location, minCustomers, maxCustomers, avgCookiesPerSale) {
-  this.location = location;
-  this.minCustomers = minCustomers;
-  this.maxCustomers = maxCustomers;
-  this.avgCookiesPerSale = avgCookiesPerSale;
+function Store(name, minCust, maxCust, avgCookies) {
+  this.name = name;
+  this.minCust = minCust;
+  this.maxCust = maxCust;
+  this.avgCookies = avgCookies;
+  this.hourlyCookies = [];
+  this.dailyTotal = 0;
   stores.push(this);
+  this.getHourlyCookies();
 }
+
+//Instances
+Store.prototype.getHourlyCookies = function() {
+  // iterate over the hours array to do a thing for each hour
+  for(var i = 0; i < hours.length; i++) {
+    // create a number of cookies for each hour, push to array, and add to daily total
+    this.hourlyCookies.push(Math.floor(this.getCustomersPerHour() * this.avgCookies));
+    this.dailyTotal += this.hourlyCookies[i];
+  }
+  return this.hourlyCookies;
+};
+Store.prototype.getCustomersPerHour = function() {
+  // returns a random number specific to the instance which called this method
+  return getRandomNum(this.minCust, this.maxCust);
+};
 
 //CREATES INSTANCES OF STORE
 new Store('1st and Pike', 23, 65, 6.3);
@@ -19,67 +37,69 @@ new Store('Capitol Hill', 23, 65, 6.3);
 new Store('Alki', 2, 16, 4.6);
 console.log(stores);
 
-//METHODS
-Store.prototype.customersPerHour = function(){
-  return Math.floor(Math.random() * (this.maxCustomers - this.minCustomers + 1)) + this.minCustomers;
-};
-Store.prototype.cookiesSold = function(){
-  return Math.floor(this.avgCookiesPerSale * this.customersPerHour());
-};
-Store.prototype.hourlyTotal = function(){
-  var hourlyTotal = [];
-  for (var i = 0; i < 15; i++){
-    hourlyTotal.push(this.cookiesSold());
-  }
-
-  var totalSum = 0;
-  for (var j = 0; j < hourlyTotal.length; j++){
-    totalSum += hourlyTotal[j];
-  }
-  hourlyTotal.push(totalSum);
-  return hourlyTotal;
-};
-//PRINTS TIMES HEADER
-function printTimes(){
-  var tableHead = document.createElement('tr');
-  var tableHeadData;
-  var emptyNode = document.createTextNode(' ');
-  var emptyNode1 = document.createElement('th');
-  emptyNode1.appendChild(emptyNode);
-  tableHead.appendChild(emptyNode1);
-  for (var i = 0; i < hours.length; i++){//For each hour,
-    tableHeadData = document.createElement('th');//create a table header.
-    tableHeadData.appendChild(document.createTextNode(hours[i]));//create a text node representing the hour and append it to the table header
-    tableHead.appendChild(tableHeadData);//Append the table header to the table row
-    console.log(i);
-  }
-  var totalTD = document.createElement('th');//creates table data cell
-  var totalTextNode = document.createTextNode('Daily Location Totals');//creates text node
-  totalTD.appendChild(totalTextNode);//append text node to table data
-  tableHead.appendChild(totalTD);
-
-  document.getElementById('data').appendChild(tableHead);//append the table row to the table on the HTML file
-  console.log('hello');
+//GET RANDOM NUMBER
+function getRandomNum(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
 }
-printTimes();
+//CREATE TABLES
+function createTable() {
+  var tableEl = document.getElementById('data');
+  tableEl.appendChild(createTableHead());
+  tableEl.appendChild(createTableBody());
+}
 
-//PRINTS STORE OBJECT NAME, HOURLY TOTAL AND OVERALL TOTAL
-Store.prototype.render = function(){
-  var hourlyTotals = this.hourlyTotal();//Stores array of hourly totals
-  var hourlyTotalTR = document.createElement('tr');//create table row
-  var storeLocationTD = document.createElement('td');//create table data cell
-  var storeLocationTextNode = document.createTextNode(this.location);//create text node
-  storeLocationTD.appendChild(storeLocationTextNode); //append text node to table data
-  hourlyTotalTR.appendChild(storeLocationTD);
-  for (var i = 0; i < hourlyTotals.length; i++){
-    var hourlyTotalTD = document.createElement('td');//create table data cell
-    var hourlyTotalTextNode = document.createTextNode(hourlyTotals[i]);//create text NODES
-    hourlyTotalTD.appendChild(hourlyTotalTextNode);//append text node to table data
-    hourlyTotalTR.appendChild(hourlyTotalTD);//append table data to table row
+function createTableHead() {
+  var theadEl = document.createElement('thead');
+  var headRow = createTableRow('', hours, 'Totals');
+  theadEl.appendChild(headRow);
+  return theadEl;
+}
+
+function createTableBody() {
+  var tbodyEl = document.createElement('tbody');
+
+  for(var k = 0; k < stores.length; k++) {
+    var bodyRow = createTableRow(stores[k].name, stores[k].hourlyCookies, stores[k].dailyTotal);
+    tbodyEl.appendChild(bodyRow);
   }
-  document.getElementById('data').appendChild(hourlyTotalTR);
-};
 
-for (var i = 0; i < stores.length; i++){
-  stores[i].render();
+  return tbodyEl;
+}
+
+function createTableRow(verticalHeader, dataPoints, verticalFooter) {
+  var trEl = document.createElement('tr');
+  var tdElOne = document.createElement('td');
+  tdElOne.textContent = verticalHeader;
+  trEl.appendChild(tdElOne);
+
+  for(var j = 0; j < dataPoints.length; j++) {
+    var tdElTwo = document.createElement('td');
+    tdElTwo.textContent = dataPoints[j];
+    trEl.appendChild(tdElTwo);
+  }
+
+  var tdElThree = document.createElement('td');
+  tdElThree.textContent = verticalFooter;
+  trEl.appendChild(tdElThree);
+
+  return trEl;
+}
+
+var sectionEl = document.getElementById('main-form');
+
+//EVENT LISTENER
+sectionEl.addEventListener('submit', onSubmit);
+
+function onSubmit(event) {
+  event.preventDefault();
+  console.log('Form filled');
+  var storeData = {
+  };
+  storeData.storeName = event.target.storeName.value;
+  storeData.minCust = event.target.minCust.value;
+  storeData.maxCust = event.target.maxCust.value;
+  storeData.avgCookiesPerSale = event.target.avgCookiesPerSale.value;
+  var newStore = new Store(storeData.storeName, storeData.minCust, storeData.maxCust, storeData.avgCookiePerCust);
+  console.log(newStore);
+  createTable();
 }
