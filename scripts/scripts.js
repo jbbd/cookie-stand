@@ -13,6 +13,10 @@ function Store(name, minCust, maxCust, avgCookies) {
   stores.push(this);
   this.getHourlyCookies();
 }
+//GET RANDOM NUMBER
+function getRandomNum(min, max) {
+  return Math.round(Math.random() * (max - min) + min);
+}
 
 //Instances
 Store.prototype.getHourlyCookies = function() {
@@ -21,6 +25,7 @@ Store.prototype.getHourlyCookies = function() {
     // create a number of cookies for each hour, push to array, and add to daily total
     this.hourlyCookies.push(Math.floor(this.getCustomersPerHour() * this.avgCookies));
     this.dailyTotal += this.hourlyCookies[i];
+    console.log(this. hourlyCookies);
   }
   return this.hourlyCookies;
 };
@@ -37,10 +42,6 @@ new Store('Capitol Hill', 23, 65, 6.3);
 new Store('Alki', 2, 16, 4.6);
 console.log(stores);
 
-//GET RANDOM NUMBER
-function getRandomNum(min, max) {
-  return Math.round(Math.random() * (max - min) + min);
-}
 //CREATE TABLES ----- TAKEN FROM SCOTT'S LAB BECAUSE I COULD NOT MAKE IT ANY BETTER
 function createTable() {
   var tableEl = document.getElementById('data');
