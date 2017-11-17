@@ -25,8 +25,8 @@ Store.prototype.getHourlyCookies = function() {
     // create a number of cookies for each hour, push to array, and add to daily total
     this.hourlyCookies.push(Math.floor(this.getCustomersPerHour() * this.avgCookies));
     this.dailyTotal += this.hourlyCookies[i];
-    console.log(this. hourlyCookies);
   }
+  console.log(this.hourlyCookies);
   return this.hourlyCookies;
 };
 Store.prototype.getCustomersPerHour = function() {
@@ -41,6 +41,7 @@ new Store('Seattle Center', 11, 38, 2.3);
 new Store('Capitol Hill', 23, 65, 6.3);
 new Store('Alki', 2, 16, 4.6);
 console.log(stores);
+createTable();
 
 //CREATE TABLES ----- TAKEN FROM SCOTT'S LAB BECAUSE I COULD NOT MAKE IT ANY BETTER
 function createTable() {
@@ -72,36 +73,53 @@ function createTableRow(verticalHeader, dataPoints, verticalFooter) {
   var tdElOne = document.createElement('td');
   tdElOne.textContent = verticalHeader;
   trEl.appendChild(tdElOne);
-
   for(var j = 0; j < dataPoints.length; j++) {
     var tdElTwo = document.createElement('td');
     tdElTwo.textContent = dataPoints[j];
     trEl.appendChild(tdElTwo);
   }
-
   var tdElThree = document.createElement('td');
   tdElThree.textContent = verticalFooter;
   trEl.appendChild(tdElThree);
-
   return trEl;
 }
 
 var sectionEl = document.getElementById('main-form');
 
-//EVENT LISTENER
-sectionEl.addEventListener('submit', onSubmit);
 
 function onSubmit(event) {
   event.preventDefault();
   console.log('Form filled');
   var storeData = {
   };
-  storeData.storeName = event.target.storeName.value;
-  storeData.minCust = event.target.minCust.value;
-  storeData.maxCust = event.target.maxCust.value;
-  storeData.avgCookiesPerSale = event.target.avgCookiesPerSale.value;
+  storeData.storeName = event.target.storeName.value;//get store name
+  storeData.minCust = parseInt(event.target.minCust.value); //parse number
+  storeData.maxCust = parseInt(event.target.maxCust.value); //parse number
+  storeData.avgCookiesPerSale = parseInt(event.target.avgCookiesPerSale.value); //parse number
   var newStore = new Store(storeData.storeName, storeData.minCust, storeData.maxCust, storeData.avgCookiesPerSale);
-  console.log(newStore);
-  // createTableRow();
-  createTable();
+  // Append data to table
+  addRow(newStore.name, newStore.hourlyCookies , newStore.dailyTotal);
 }
+
+function addRow(name, hourlyTotal, dailyTotal){
+  console.log('name', name, 'hourly total', hourlyTotal, 'dailyTotal', dailyTotal);
+  var tRow = document.createElement('tr');//create table row
+  var tData = document.createElement('td');//create table data
+  tData.textContent = name;//create text content of store name name
+  tRow.appendChild(tData);//append name location to row
+
+  for (var i = 0; i < hourlyTotal.length; i++){
+    var tData2 = document.createElement('td');//create table data
+    tData2.textContent = hourlyTotal[i];//create text content of total
+    tRow.appendChild(tData2);//append table data to row
+  }
+  var tData3 = document.createElement('td');
+  tData3.textContent = dailyTotal;
+  tRow.appendChild(tData3);
+  document.getElementById('data').appendChild(tRow);
+
+  return tRow;
+}
+
+//EVENT LISTENER
+sectionEl.addEventListener('submit', onSubmit);
