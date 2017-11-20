@@ -2,7 +2,8 @@
 
 //STORES ARRAY 'STORES' NEW INSTANCES OF STORE
 var stores = [];
-var hours = ['6am', '7am', '8am', '9am','10am', '11am', '12pm', '1pm','2pm', '3pm', '4pm', '5pm', '6pm', '7pm', '8pm'];
+var grossHourly = [];
+var hours = ['6am', '7am', '8am', '9am','10am', '11am', '12pm', '1pm','2pm', '3pm', '4pm', '5pm', '6pm', '7pm'];
 function Store(name, minCust, maxCust, avgCookies) {
   this.name = name;
   this.minCust = minCust;
@@ -43,11 +44,25 @@ new Store('Alki', 2, 16, 4.6);
 console.log(stores);
 createTable();
 
+// Gets gross hourly total for all stores
+var getGrossHour = function(){
+  for (var i = 0; i < hours.length; i++){
+    var total = 0;
+    for (var x = 0; x < stores.length; x++){
+      total += stores[x].hourlyCookies[i];
+    }grossHourly.push(total);
+
+  }return grossHourly;
+};
+getGrossHour();
+
+
 //CREATE TABLES ----- TAKEN FROM SCOTT'S LAB BECAUSE I COULD NOT MAKE IT ANY BETTER
 function createTable() {
   var tableEl = document.getElementById('data');
   tableEl.appendChild(createTableHead());
   tableEl.appendChild(createTableBody());
+  tableEl.appendChild(tableFooter());
 }
 
 function createTableHead() {
@@ -64,8 +79,29 @@ function createTableBody() {
     var bodyRow = createTableRow(stores[k].name, stores[k].hourlyCookies, stores[k].dailyTotal);
     tbodyEl.appendChild(bodyRow);
   }
-
   return tbodyEl;
+}
+
+function createTableFooter() {//WORK ON THIS
+  var tfooterEl = document.createElement('tfoot');//Create foot
+  var trEl = document.createElement('tr');//Create row
+  var tdElTotal = document.createElement('td');//create table data
+  tdElTotal.textContent = 'Hourly Totals';
+  trEl.appendChild(tdElTotal);//Append td to tr
+  for(var z = 0; z < grossHourly.length; z++){//As long as i is less than the grossHourly length...
+    var tdElTwo = document.createElement('td');//create table data
+    tdElTwo.textContent = grossHourly[z]; //create text
+    trEl.appendChild(tdElTwo);//append td to tr
+  }
+  tfooterEl.appendChild(trEl);//append tr to tfoot
+  return tfooterEl;
+}
+
+function tableFooter(){
+  var tdFoot = document.createElement('tfoot');
+  var tFootRow = createTableRow('Totals', grossHourly, '');
+  tdFoot.appendChild(tFootRow);
+  return tdFoot;
 }
 
 function createTableRow(verticalHeader, dataPoints, verticalFooter) {
@@ -120,6 +156,5 @@ function addRow(name, hourlyTotal, dailyTotal){
 
   return tRow;
 }
-
 //EVENT LISTENER
 sectionEl.addEventListener('submit', onSubmit);
