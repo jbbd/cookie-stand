@@ -62,7 +62,7 @@ function createTable() {
   var tableEl = document.getElementById('data');
   tableEl.appendChild(createTableHead());
   tableEl.appendChild(createTableBody());
-  tableEl.appendChild(tableFooter());
+  tableEl.appendChild(createTableFooter());
 }
 
 function createTableHead() {
@@ -97,12 +97,6 @@ function createTableFooter() {//WORK ON THIS
   return tfooterEl;
 }
 
-function tableFooter(){
-  var tdFoot = document.createElement('tfoot');
-  var tFootRow = createTableRow('Totals', grossHourly, '');
-  tdFoot.appendChild(tFootRow);
-  return tdFoot;
-}
 
 function createTableRow(verticalHeader, dataPoints, verticalFooter) {
   var trEl = document.createElement('tr');
